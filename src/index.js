@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 console.log("feedbak react app");
-alert("React feedback app");
-debugger
 ReactDOM.render(<App />, document.getElementById('feedbackId'));
 
 // If you want your app to work offline and load faster, you can change

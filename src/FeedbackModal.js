@@ -1,6 +1,6 @@
+
 import React, { Component } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, } from 'reactstrap';
-import MainImage from './screen.png'
 
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -30,9 +30,11 @@ class FeedbackModal extends Component {
     }
 
     componentDidMount() {
-        document.querySelector('#submit-feedback-btn').onclick = (e) => {
+        var name = document.getElementById("feedbackId").getAttribute("data-trigger"); 
+        window.$(document).on('click', "." + name, (e) => {
             this.takeScreenShot();
-        };
+        });
+      
     }
 
     toggle() {
@@ -46,9 +48,11 @@ class FeedbackModal extends Component {
             crop: crop
         })
     }
+    
     onImageLoaded = (image) => {
         this.imageRef = image;
     }
+
     handleImageLoaded(image) {
         console.log("image", image)
     }
@@ -62,15 +66,15 @@ class FeedbackModal extends Component {
         })
 
     }
-    takeScreenShot(){
+    takeScreenShot() {
         html2canvas(document.querySelector('body')).then((canvas) => {
-            // document.body.appendChild(canvas);
             this.screenShotImage = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
             this.setState({showFeedbackModal : true})
         });
     }
 
     render() {
+        
         return (
             <div>
                 <Modal id="myModal" isOpen={this.state.showFeedbackModal} toggle={this.toggle} fade={false} style={{ width: "100%", display: "block", opacity: 1 }}>
@@ -83,7 +87,7 @@ class FeedbackModal extends Component {
                             </FormGroup>
                             <FormGroup check>
                                 <Input type="checkbox" />{'    '}
-                                Include Scrrenshot
+                                <span style={{marginRight: "20px"}}>Include Screenshot</span>
                             </FormGroup>
                             <hr />
                         </Form>
@@ -102,9 +106,6 @@ class FeedbackModal extends Component {
                             <img src={this.state.croppedImage} />
                             {/* <canvas ref={this.imagePreviewCanvasRef}></canvas> */}
                         </div>
-                        <div>
-                            Go to the <a href="#">Legal help page</a> to request content changes for legel resons.Some <a href="#">account and system information</a> may be sent to google.We will use the information you give us to help address technical issues and to improve our services,subject to our <a href="#">Privacy policy</a> and <a href="#">Terms of Service</a>.
-                    </div>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.toggle}>Cancel</Button>{' '}
@@ -120,3 +121,4 @@ class FeedbackModal extends Component {
 
 
 export default FeedbackModal;
+
