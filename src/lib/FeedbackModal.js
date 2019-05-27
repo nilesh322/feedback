@@ -7,6 +7,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import { getCroppedImg } from './Utils/NewCropImage';
 import html2canvas from 'html2canvas';
 import axios from 'axios';
+import myimage from './screen.png';
 
 class FeedbackModal extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class FeedbackModal extends Component {
                 coverPhoto: ''
             }
         };
-        this.screenShotImage = '';
+        this.screenShotImage = myimage;
         this.imageRef = '';
         this.toggle = this.toggle.bind(this);
         this.handleOnCropChange = this.handleOnCropChange.bind(this);
@@ -112,7 +113,7 @@ class FeedbackModal extends Component {
     render() {
         return (
             <div>
-                <Modal id="myModal" isOpen={this.state.showFeedbackModal} toggle={this.toggle} fade={false} style={{ width: "100%", display: "block", opacity: 1 }}>
+                <Modal id="myModal" isOpen={true} toggle={this.toggle} fade={false} style={{ width: "100%", display: "block", opacity: 1 }}>
                     <ModalHeader toggle={this.toggle}>Send Feedback</ModalHeader>
                     <ModalBody>
                         <Form>
@@ -137,7 +138,7 @@ class FeedbackModal extends Component {
                         </Form>
                         <div className='image'>
                             <ReactCrop
-                                src={this.screenShotImage}
+                                src={myimage}
                                 crop={this.state.crop}
                                 onChange={this.handleOnCropChange}
                                 onImageLoaded={this.onImageLoaded}
